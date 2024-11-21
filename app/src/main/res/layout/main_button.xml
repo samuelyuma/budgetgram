@@ -8,5 +8,6 @@
         android:paddingVertical="16dp"
         android:paddingHorizontal="20dp"
         android:textStyle="bold"
+        android:textAllCaps="false"
         android:fontFamily="@font/nunito" />
 </merge>

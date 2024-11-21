@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/button_entries"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:background="@drawable/button_style"
+        android:src="@drawable/baseline_history_24"
+        android:tint="@color/text"
+        android:scaleType="centerInside"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="History Button"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito"
+        android:text="BudgetGram"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        android:textColor="@color/text"
+        android:layout_marginTop="60dp"/>
+
+    <ImageButton
+        android:id="@+id/button_camera"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:background="@drawable/button_style"
+        android:src="@drawable/camera_solid"
+        android:tint="@color/text"
+        android:scaleType="centerInside"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="History Button"/>
+
+    <TextView
+        android:id="@+id/text_spending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito"
+        android:text="Biggest Spending"
+        app:layout_constraintTop_toBottomOf="@id/button_entries"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/text"
+        android:layout_marginTop="24dp"/>
+
+
+    <GridLayout
+        android:id="@+id/grid_spending"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/text_spending"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3">
+
+        <include
+            layout="@layout/entry_template"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_margin="2dp"
+            android:layout_columnWeight="1"/>
+
+        <include
+            layout="@layout/entry_template"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_margin="2dp"
+            android:layout_columnWeight="1"/>
+
+        <include
+            layout="@layout/entry_template"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_margin="2dp"
+            android:layout_columnWeight="1"/>
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/text_recs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito"
+        android:text="Budgeting Recommendations"
+        app:layout_constraintTop_toBottomOf="@id/grid_spending"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/text"
+        android:layout_marginTop="32dp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

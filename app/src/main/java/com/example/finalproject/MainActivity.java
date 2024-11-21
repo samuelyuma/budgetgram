@@ -1,5 +1,8 @@
 package com.example.finalproject;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -25,6 +28,16 @@ public class MainActivity extends AppCompatActivity implements LocationHelper.Lo
         locationHelper = new LocationHelper(this);
 
         btnGetLocation.setOnClickListener(v -> locationHelper.requestLocation(this, this));
+
+        Button buttonStart = findViewById(R.id.button_start);
+
+        buttonStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CameraPageActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -44,3 +57,4 @@ public class MainActivity extends AppCompatActivity implements LocationHelper.Lo
         }
     }
 }
+

@@ -29,6 +29,14 @@
             android:text="Location will be shown here"
             android:fontFamily="@font/nunito"
             android:textColor="@color/text"/>
+
+        <Button
+            android:id="@+id/button_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start app" />
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
