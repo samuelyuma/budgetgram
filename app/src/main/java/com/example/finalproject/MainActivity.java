@@ -9,13 +9,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricManager;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
-import com.example.finalproject.views.MainButton;
+import java.util.concurrent.Executor;
 
-public class MainActivity extends AppCompatActivity implements LocationHelper.LocationCallback {
-
+public class MainActivity extends AppCompatActivity {
     private TextView tvLocation;
-    private LocationHelper locationHelper;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
+    private Executor executor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,38 +27,58 @@ public class MainActivity extends AppCompatActivity implements LocationHelper.Lo
         setContentView(R.layout.activity_main);
 
         tvLocation = findViewById(R.id.TextViewLocation);
-        MainButton btnGetLocation = findViewById(R.id.ButtonGetLocation);
-
-        locationHelper = new LocationHelper(this);
-
-        btnGetLocation.setOnClickListener(v -> locationHelper.requestLocation(this, this));
-
         Button buttonStart = findViewById(R.id.button_start);
+
+        BiometricManager biometricManager = BiometricManager.from(this);
+        switch (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)) {
+            case BiometricManager.BIOMETRIC_SUCCESS:
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
+                Toast.makeText(this, "Device doesn't support biometric", Toast.LENGTH_SHORT).show();
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
+                Toast.makeText(this, "Biometric hardware unavailable", Toast.LENGTH_SHORT).show();
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+                Toast.makeText(this, "No biometric enrolled", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        executor = ContextCompat.getMainExecutor(this);
+
+        biometricPrompt = new BiometricPrompt(MainActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                Toast.makeText(MainActivity.this, "Authentication error: " + errString, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                Toast.makeText(MainActivity.this, "Authentication succeeded!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, CameraPageActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                Toast.makeText(MainActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Biometric Authentication")
+                .setSubtitle("Log in using your biometric credential")
+                .setNegativeButtonText("Cancel")
+                .build();
 
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CameraPageActivity.class);
-                startActivity(intent);
+                biometricPrompt.authenticate(promptInfo);
             }
         });
     }
-
-    @Override
-    public void onLocationRetrieved(String address) {
-        tvLocation.setText(address);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == LocationHelper.LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                locationHelper.requestLocation(this, this);
-            } else {
-                Toast.makeText(this, "Izin lokasi diperlukan untuk mengakses lokasi.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 }
-

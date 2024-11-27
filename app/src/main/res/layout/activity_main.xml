@@ -15,18 +15,18 @@
         android:padding="16dp"
         android:gravity="center">
 
-        <com.example.finalproject.views.MainButton
-            android:id="@+id/ButtonGetLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Get Location" />
+<!--        <com.example.finalproject.views.MainButton-->
+<!--            android:id="@+id/ButtonGetLocation"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Get Location" />-->
 
         <TextView
             android:id="@+id/TextViewLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Location will be shown here"
+            android:text="Welcome to BudgetGram!"
             android:fontFamily="@font/nunito"
             android:textColor="@color/text"/>
 

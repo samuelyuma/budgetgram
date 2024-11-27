@@ -7,6 +7,6 @@ public class CameraPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.camera_page); // Link to your XML layout
+        setContentView(R.layout.camera_page);
     }
 }
