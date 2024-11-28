@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import java.io.File;
 import java.util.concurrent.ExecutionException;
 
 public class CameraPageActivity extends AppCompatActivity implements LifecycleOwner {
+    private static final int LOCATION_REQUEST_CODE = 100;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     private PreviewView previewView;
     private ImageButton captureButton;
@@ -40,8 +42,16 @@ public class CameraPageActivity extends AppCompatActivity implements LifecycleOw
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_page);
 
+        TextView textLocation = findViewById(R.id.text_location);
         previewView = findViewById(R.id.camera);
         captureButton = findViewById(R.id.camera_button);
+
+        ActivityCompat.requestPermissions(this, new String[]{
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+        }, LOCATION_REQUEST_CODE);
+
+        LocationHelper.fetchAndDisplayPlaceName(this, textLocation);
 
         if (checkCameraPermission()) {
             startCamera();

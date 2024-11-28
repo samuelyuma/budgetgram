@@ -11,14 +11,14 @@
         android:layout_height="52dp"
         android:src="@drawable/chevron_left_solid"
         android:background="@android:color/transparent"
-        android:tint="@color/text"
         android:padding="12dp"
         android:scaleType="centerInside"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="12dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="History Button"/>
+        android:contentDescription="History Button"
+        app:tint="@color/text" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
             android:fontFamily="@font/nunito"
             android:textColor="@color/text"
             android:textSize="16sp"
-            android:text="Kafe Asa"
+            android:text="N/A"
             android:layout_marginStart="8dp"/>
 
     </LinearLayout>
@@ -97,7 +97,7 @@
             android:fontFamily="@font/nunito"
             android:textSize="20sp"
             android:textColor="@color/text"
-            android:textColorHint="@color/text"
+            android:textColorHint="@color/text_hint"
             android:paddingVertical="12dp"
             android:gravity="center"
             android:hint="30000" />

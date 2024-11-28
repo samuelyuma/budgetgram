@@ -16,12 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import java.io.File;
 import java.text.NumberFormat;
 import java.util.Locale;
 
 public class CamPreviewActivity extends AppCompatActivity {
+    private static final int LOCATION_REQUEST_CODE = 100;
     private static final String TAG = "CamPreviewActivity";
     private String imagePath;
     private EditText priceInput;
@@ -32,6 +34,15 @@ public class CamPreviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cam_preview_page);
+
+        TextView textLocation = findViewById(R.id.text_location);
+
+        ActivityCompat.requestPermissions(this, new String[]{
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+        }, LOCATION_REQUEST_CODE);
+
+        LocationHelper.fetchAndDisplayPlaceName(this, textLocation);
 
         initializeViews();
         setupPriceInput();

@@ -39,10 +39,10 @@
         android:src="@drawable/file_lines_solid"
         android:scaleType="centerInside"
         android:layout_marginEnd="16dp"
-        android:tint="@color/text"
         app:layout_constraintTop_toTopOf="@id/button_entries"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="Recommendations Button"/>
+        android:contentDescription="Recommendations Button"
+        app:tint="@color/text" />
 
     <LinearLayout
         android:id="@+id/text_loc"
@@ -67,7 +67,7 @@
             android:fontFamily="@font/nunito"
             android:textColor="@color/text"
             android:textSize="16sp"
-            android:text="Kafe Asa"
+            android:text="N/A"
             android:layout_marginStart="8dp"/>
     </LinearLayout>
 

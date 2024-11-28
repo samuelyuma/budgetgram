@@ -31,7 +31,7 @@
             android:fontFamily="@font/nunito"
             android:textColor="@color/text"
             android:textSize="14sp"
-            android:text="Kafe Asa"
+            android:text="N/A"
             android:layout_marginStart="4dp"/>
     </LinearLayout>
 
@@ -49,7 +49,7 @@
         android:id="@+id/location_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Rp. 32100"
+        android:text="Rp. 0"
         android:textColor="@color/text"
         android:fontFamily="@font/nunito"
         android:textSize="14sp"
