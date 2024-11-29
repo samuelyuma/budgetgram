@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.ui;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import com.example.finalproject.R;
+import com.example.finalproject.helpers.DatabaseHelper;
+import com.example.finalproject.helpers.LocationHelper;
 
 import java.io.File;
 import java.text.NumberFormat;
@@ -57,6 +61,12 @@ public class CamPreviewActivity extends AppCompatActivity {
 
         setClickListeners();
         loadImage();
+    }
+
+    private void navigateToCamera() {
+        Intent intent = new Intent(this, CameraPageActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void initializeViews() {
@@ -116,19 +126,12 @@ public class CamPreviewActivity extends AppCompatActivity {
         });
     }
 
-    private void navigateToCamera() {
-        Intent intent = new Intent(this, CameraPageActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
     private void loadImage() {
         try {
             File imageFile = new File(imagePath);
             if (!imageFile.exists()) {
                 Log.e(TAG, "Image file does not exist: " + imagePath);
                 Toast.makeText(this, "Image file not found", Toast.LENGTH_SHORT).show();
-                navigateToCamera();
                 return;
             }
 
@@ -217,7 +220,8 @@ public class CamPreviewActivity extends AppCompatActivity {
 
     private void saveEntry(String imagePath, String price, String location) {
         try {
-            // TODO: Implement your save logic here
+            DatabaseHelper dbHelper = new DatabaseHelper(this);
+            dbHelper.insertEntry(location, imagePath, price);
             Toast.makeText(this, "Entry saved successfully!", Toast.LENGTH_SHORT).show();
             navigateToCamera();
         } catch (Exception e) {

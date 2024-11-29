@@ -56,7 +56,10 @@
             android:textColor="@color/text"
             android:textSize="16sp"
             android:text="N/A"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="54dp"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
@@ -111,7 +114,7 @@
             android:src="@drawable/plus_solid"
             android:scaleType="centerInside"
             android:layout_marginLeft="10dp"
-            android:contentDescription="History Button"/>
+            android:contentDescription="Save Entry"/>
 
     </LinearLayout>
 
