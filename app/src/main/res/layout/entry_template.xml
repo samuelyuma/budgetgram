@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/rounded_entry"
-    android:elevation="4dp">
+    android:elevation="8dp"
+    android:layout_marginHorizontal="4dp" >
 
 
     <!-- Location Info -->

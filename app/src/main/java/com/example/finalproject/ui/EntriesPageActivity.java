@@ -3,6 +3,9 @@ package com.example.finalproject.ui;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.content.Intent;
+import android.widget.ImageButton;
+import com.example.finalproject.ui.CameraPageActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,6 +30,12 @@ public class EntriesPageActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView_entries);
         databaseHelper = new DatabaseHelper(this);
+
+        ImageButton buttonCamera = findViewById(R.id.button_camera);
+        buttonCamera.setOnClickListener(view -> {
+            Intent intent = new Intent(EntriesPageActivity.this, CameraPageActivity.class);
+            startActivity(intent);
+        });
 
         loadEntries();
     }
