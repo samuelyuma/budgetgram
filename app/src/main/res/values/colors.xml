@@ -6,4 +6,5 @@
     <color name="red">#DC4141</color>
     <color name="text">#CBCBCB</color>
     <color name="text_hint">#80CBCBCB</color>
+    <color name="button_yellow">#DCC304</color>
 </resources>
