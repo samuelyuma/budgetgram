@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import com.example.finalproject.ui.CameraPageActivity;
 import java.util.concurrent.Executor;
 
+// For commit only
 public class MainActivity extends AppCompatActivity {
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
