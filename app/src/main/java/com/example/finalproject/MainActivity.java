@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.content.pm.PackageManager;
@@ -13,10 +14,10 @@ import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.example.finalproject.ui.CameraPageActivity;
 import java.util.concurrent.Executor;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView tvLocation;
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
     private Executor executor;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tvLocation = findViewById(R.id.TextViewLocation);
         Button buttonStart = findViewById(R.id.button_start);
 
         BiometricManager biometricManager = BiometricManager.from(this);
@@ -78,7 +78,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 biometricPrompt.authenticate(promptInfo);
+                Intent intent = new Intent(MainActivity.this, CameraPageActivity.class);
+                startActivity(intent);
             }
         });
     }
 }
+

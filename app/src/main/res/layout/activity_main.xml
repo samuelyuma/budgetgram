@@ -8,34 +8,38 @@
     android:background="@color/background"
     tools:context=".MainActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
         android:gravity="center">
 
-<!--        <com.example.finalproject.views.MainButton-->
-<!--            android:id="@+id/ButtonGetLocation"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Get Location" />-->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/logo" />
 
         <TextView
-            android:id="@+id/TextViewLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Welcome to BudgetGram!"
+            android:textColor="@color/text"
+            android:layout_marginHorizontal="100dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="28dp"
+            android:gravity="center"
             android:fontFamily="@font/nunito"
-            android:textColor="@color/text"/>
+            android:text="Welcome to Budgetgram!" />
 
         <Button
             android:id="@+id/button_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start app" />
-
+            android:text="Start app"
+            android:textSize="20dp"
+            android:fontFamily="@font/nunito"
+            app:backgroundTint="@color/button_yellow" />
 
     </LinearLayout>
 
