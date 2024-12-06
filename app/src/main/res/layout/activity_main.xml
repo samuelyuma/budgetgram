@@ -17,8 +17,8 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="128dp"
+            android:layout_marginBottom="12dp"
             android:src="@drawable/logo" />
 
         <TextView
@@ -37,8 +37,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Start app"
-            android:textSize="20dp"
+            android:paddingVertical="12dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
             android:fontFamily="@font/nunito"
+            android:textColor="@color/background"
             app:backgroundTint="@color/button_yellow" />
 
     </LinearLayout>
