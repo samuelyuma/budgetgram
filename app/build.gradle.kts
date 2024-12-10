@@ -38,6 +38,9 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.play.services.location)
 
+    // Biometric
+    implementation("androidx.biometric:biometric:1.1.0")
+
     // CameraX
     implementation("androidx.camera:camera-core:1.3.0")
     implementation("androidx.camera:camera-camera2:1.3.0")
@@ -60,5 +63,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    annotationProcessor(libs.room.compiler)
 }
