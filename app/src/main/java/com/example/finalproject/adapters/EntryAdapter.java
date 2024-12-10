@@ -1,6 +1,7 @@
 package com.example.finalproject.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.finalproject.R;
 import com.example.finalproject.database.Entry;
 import com.bumptech.glide.Glide;
+import com.example.finalproject.ui.PreviewEntryPageActivity;
+
 import java.util.List;
 
 public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.EntryViewHolder> {
@@ -42,6 +45,14 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.EntryViewHol
                 .into(holder.imageView);
 
         holder.price.setText("Rp. " + entry.getPrice());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, PreviewEntryPageActivity.class);
+            intent.putExtra("location_name", entry.getLocationName());
+            intent.putExtra("image_url", entry.getImageUrl());
+            intent.putExtra("price", entry.getPrice());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -50,7 +61,6 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.EntryViewHol
     }
 
     static class EntryViewHolder extends RecyclerView.ViewHolder {
-
         TextView locationName, price;
         ImageView imageView;
 
