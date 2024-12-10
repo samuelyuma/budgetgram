@@ -32,18 +32,6 @@
             android:fontFamily="@font/nunito"
             android:text="Welcome to Budgetgram!" />
 
-        <Button
-            android:id="@+id/button_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start app"
-            android:paddingVertical="12dp"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:textColor="@color/background"
-            android:fontFamily="@font/nunito"
-            app:backgroundTint="@color/button_yellow" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

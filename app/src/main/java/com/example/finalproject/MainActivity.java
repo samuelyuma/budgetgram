@@ -2,8 +2,6 @@ package com.example.finalproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +12,6 @@ import androidx.core.content.ContextCompat;
 import com.example.finalproject.ui.CameraPageActivity;
 import java.util.concurrent.Executor;
 
-// For commit only
 public class MainActivity extends AppCompatActivity {
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
@@ -25,11 +22,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button buttonStart = findViewById(R.id.button_start);
-
         BiometricManager biometricManager = BiometricManager.from(this);
         switch (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)) {
             case BiometricManager.BIOMETRIC_SUCCESS:
+                setupBiometricAuth();
                 break;
             case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
                 Toast.makeText(this, "Device doesn't support biometric", Toast.LENGTH_SHORT).show();
@@ -41,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "No biometric enrolled", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
 
+    private void setupBiometricAuth() {
         executor = ContextCompat.getMainExecutor(this);
 
         biometricPrompt = new BiometricPrompt(MainActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
@@ -72,12 +70,6 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButtonText("Cancel")
                 .build();
 
-        buttonStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                biometricPrompt.authenticate(promptInfo);
-            }
-        });
+        biometricPrompt.authenticate(promptInfo);
     }
 }
-

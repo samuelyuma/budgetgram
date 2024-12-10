@@ -32,19 +32,19 @@
         android:layout_marginTop="60dp"/>
 
 <!--    ngarah ke page recommendation report jg-->
-    <ImageButton
-        android:id="@+id/button_recs"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:background="@drawable/button_style"
-        android:src="@drawable/file_lines_solid"
-        android:scaleType="centerInside"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="48dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="History Button"
-        app:tint="@color/text" />
+<!--    <ImageButton-->
+<!--        android:id="@+id/button_recs"-->
+<!--        android:layout_width="52dp"-->
+<!--        android:layout_height="52dp"-->
+<!--        android:background="@drawable/button_style"-->
+<!--        android:src="@drawable/file_lines_solid"-->
+<!--        android:scaleType="centerInside"-->
+<!--        android:layout_marginRight="16dp"-->
+<!--        android:layout_marginTop="48dp"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:contentDescription="History Button"-->
+<!--        app:tint="@color/text" />-->
 
     <TextView
         android:id="@+id/text_no_entries"
