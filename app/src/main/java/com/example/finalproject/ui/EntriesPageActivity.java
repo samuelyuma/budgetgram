@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.content.Intent;
 import android.widget.ImageButton;
-import com.example.finalproject.ui.CameraPageActivity;
-
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +22,7 @@ public class EntriesPageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private EntryAdapter entryAdapter;
     private DatabaseHelper databaseHelper;
+    private ActivityResultLauncher<Intent> previewLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,15 @@ public class EntriesPageActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView_entries);
         databaseHelper = new DatabaseHelper(this);
+
+        previewLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        loadEntries();
+                    }
+                }
+        );
 
         ImageButton buttonCamera = findViewById(R.id.button_camera);
         buttonCamera.setOnClickListener(view -> {
@@ -56,11 +66,20 @@ public class EntriesPageActivity extends AppCompatActivity {
                     recyclerView.setVisibility(View.VISIBLE);
 
                     entryAdapter = new EntryAdapter(this, entries);
-                    recyclerView.setLayoutManager(new GridLayoutManager(this, 2)); // 2 columns
+                    recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                     recyclerView.setAdapter(entryAdapter);
                 }
             });
         }).start();
     }
 
+    public ActivityResultLauncher<Intent> getPreviewLauncher() {
+        return previewLauncher;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadEntries();
+    }
 }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.finalproject.R;
 import com.example.finalproject.database.Entry;
 import com.bumptech.glide.Glide;
+import com.example.finalproject.ui.EntriesPageActivity;
 import com.example.finalproject.ui.PreviewEntryPageActivity;
 
 import java.util.List;
@@ -48,10 +49,14 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.EntryViewHol
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, PreviewEntryPageActivity.class);
+            intent.putExtra("id", entry.getId());
             intent.putExtra("location_name", entry.getLocationName());
             intent.putExtra("image_url", entry.getImageUrl());
             intent.putExtra("price", entry.getPrice());
-            context.startActivity(intent);
+
+            if (context instanceof EntriesPageActivity) {
+                ((EntriesPageActivity) context).getPreviewLauncher().launch(intent);
+            }
         });
     }
 

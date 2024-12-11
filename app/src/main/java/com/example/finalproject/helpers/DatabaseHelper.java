@@ -26,6 +26,10 @@ public class DatabaseHelper {
         return database.entryDao().getAllEntries();
     }
 
+    public void updateEntry(Entry entry) {
+        new Thread(() -> database.entryDao().update(entry)).start();
+    }
+
     public void deleteEntry(Entry entry) {
         new Thread(() -> database.entryDao().delete(entry)).start();
     }
