@@ -55,7 +55,7 @@
             android:fontFamily="@font/nunito"
             android:textColor="@color/text"
             android:textSize="16sp"
-            android:text="N/A"
+            android:text="Select location"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="54dp"
             android:ellipsize="end"

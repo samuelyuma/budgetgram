@@ -63,7 +63,6 @@ public class CameraPageActivity extends AppCompatActivity implements LifecycleOw
     private void initializeViews() {
         previewView = findViewById(R.id.camera);
         captureButton = findViewById(R.id.camera_button);
-        TextView textLocation = findViewById(R.id.text_location);
         ImageButton buttonEntries = findViewById(R.id.button_entries);
 
         captureButton.setOnClickListener(v -> takePhoto());

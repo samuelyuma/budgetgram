@@ -1,6 +1,7 @@
 package com.example.finalproject.ui;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,14 +23,20 @@ import androidx.core.app.ActivityCompat;
 import com.example.finalproject.R;
 import com.example.finalproject.helpers.DatabaseHelper;
 import com.example.finalproject.helpers.LocationHelper;
+import com.example.finalproject.helpers.PlacesHelper;
 
 import java.io.File;
 import java.text.NumberFormat;
 import java.util.Locale;
 
 public class CamPreviewActivity extends AppCompatActivity {
-    private static final int LOCATION_REQUEST_CODE = 100;
     private static final String TAG = "CamPreviewActivity";
+    private static final int LOCATION_REQUEST_CODE = 100;
+    private static final String[] REQUIRED_PERMISSIONS = {
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION
+    };
+
     private String imagePath;
     private EditText priceInput;
     private ImageView previewImage;
@@ -39,16 +47,20 @@ public class CamPreviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cam_preview_page);
 
-        TextView textLocation = findViewById(R.id.text_location);
+        // Request necessary permissions
+        ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, LOCATION_REQUEST_CODE);
 
-        ActivityCompat.requestPermissions(this, new String[]{
-                android.Manifest.permission.ACCESS_FINE_LOCATION,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-        }, LOCATION_REQUEST_CODE);
-
-        LocationHelper.fetchAndDisplayPlaceName(this, textLocation);
+        // Initialize Places API
+        try {
+            String apiKey = getString(R.string.google_maps_key);
+            PlacesHelper.initPlaces(this, apiKey);
+        } catch (Exception e) {
+            Log.e(TAG, "Error initializing Places API", e);
+            Toast.makeText(this, "Error initializing location services", Toast.LENGTH_SHORT).show();
+        }
 
         initializeViews();
+        setupLocationPicker();
         setupPriceInput();
 
         imagePath = getIntent().getStringExtra("IMAGE_PATH");
@@ -75,6 +87,20 @@ public class CamPreviewActivity extends AppCompatActivity {
         ImageButton addButton = findViewById(R.id.button_add);
         priceInput = findViewById(R.id.price_input);
         locationText = findViewById(R.id.text_location);
+    }
+
+    private void setupLocationPicker() {
+        View locationLayout = findViewById(R.id.text_loc);
+        locationLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkLocationPermissions()) {
+                    LocationHelper.fetchAndDisplayPlaceName(CamPreviewActivity.this, locationText);
+                } else {
+                    requestLocationPermissions();
+                }
+            }
+        });
     }
 
     private void setupPriceInput() {
@@ -114,16 +140,35 @@ public class CamPreviewActivity extends AppCompatActivity {
     }
 
     private void setClickListeners() {
-        findViewById(R.id.button_back).setOnClickListener(v -> {
-            navigateToCamera();
-        });
-
-        findViewById(R.id.button_add).setOnClickListener(v -> {
-            String price = priceInput.getText().toString().trim().replaceAll("\\s+", "");
-            if (validateInput(price)) {
-                saveEntry(imagePath, price, locationText.getText().toString());
+        findViewById(R.id.button_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToCamera();
             }
         });
+
+        findViewById(R.id.button_add).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String price = priceInput.getText().toString().trim().replaceAll("\\s+", "");
+                if (validateInput(price)) {
+                    saveEntry(imagePath, price, locationText.getText().toString());
+                }
+            }
+        });
+    }
+
+    private boolean checkLocationPermissions() {
+        for (String permission : REQUIRED_PERMISSIONS) {
+            if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void requestLocationPermissions() {
+        ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, LOCATION_REQUEST_CODE);
     }
 
     private void loadImage() {
@@ -227,6 +272,18 @@ public class CamPreviewActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e(TAG, "Error saving entry", e);
             Toast.makeText(this, "Error saving entry: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                LocationHelper.fetchAndDisplayPlaceName(this, locationText);
+            } else {
+                Toast.makeText(this, "Location permission required", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
