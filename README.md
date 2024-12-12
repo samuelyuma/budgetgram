@@ -1,6 +1,6 @@
 # BudgetGram
 
-Aplikasi Budgetgram dikembangkan untuk mempermudah pencatatan pengeluaran melalui foto dan rekomendasi berbasis AI. Menggunakan Java dan dilengkapi fitur GPS, Budgetgram bertujuan meningkatkan efisiensi pengelolaan keuangan pribadi dengan desain yang menarik. 
+Aplikasi Budgetgram dikembangkan untuk mempermudah pencatatan pengeluaran melalui foto. Menggunakan Java dan dilengkapi fitur GPS, Budgetgram bertujuan meningkatkan efisiensi pengelolaan keuangan pribadi dengan desain yang menarik. 
 
 ## Anggota Kelompok
 
