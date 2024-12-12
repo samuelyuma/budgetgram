@@ -42,8 +42,22 @@ public class LocationHelper {
         try {
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             if (addresses != null && !addresses.isEmpty()) {
-                String placeName = addresses.get(0).getAddressLine(0);
-                return placeName.substring(0, placeName.indexOf((",")));
+                Address address = addresses.get(0);
+
+                String street = address.getThoroughfare();
+                if (street != null && !street.matches("[A-Z0-9+,-]+") && !street.toLowerCase().contains("jalan tanpa nama")) {
+                    return street;
+                }
+
+                if (address.getSubLocality() != null) {
+                    return address.getSubLocality();
+                } else if (address.getLocality() != null) {
+                    return address.getLocality();
+                } else if (address.getSubAdminArea() != null) {
+                    return address.getSubAdminArea();
+                } else if (address.getAdminArea() != null) {
+                    return address.getAdminArea();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

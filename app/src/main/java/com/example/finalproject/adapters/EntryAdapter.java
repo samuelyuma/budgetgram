@@ -52,6 +52,7 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.EntryViewHol
             intent.putExtra("id", entry.getId());
             intent.putExtra("location_name", entry.getLocationName());
             intent.putExtra("image_url", entry.getImageUrl());
+            intent.putExtra("added_date", entry.getAddedDate());
             intent.putExtra("price", entry.getPrice());
 
             if (context instanceof EntriesPageActivity) {

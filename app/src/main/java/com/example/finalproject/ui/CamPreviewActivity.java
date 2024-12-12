@@ -23,8 +23,10 @@ import com.example.finalproject.helpers.DatabaseHelper;
 import com.example.finalproject.helpers.LocationHelper;
 
 import java.io.File;
-import java.text.NumberFormat;
+import java.util.Date;
 import java.util.Locale;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 
 public class CamPreviewActivity extends AppCompatActivity {
     private static final int LOCATION_REQUEST_CODE = 100;
@@ -121,7 +123,9 @@ public class CamPreviewActivity extends AppCompatActivity {
         findViewById(R.id.button_add).setOnClickListener(v -> {
             String price = priceInput.getText().toString().trim().replaceAll("\\s+", "");
             if (validateInput(price)) {
-                saveEntry(imagePath, price, locationText.getText().toString());
+                String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                        .format(new Date(System.currentTimeMillis()));
+                saveEntry(imagePath, price, locationText.getText().toString(), currentTime);
             }
         });
     }
@@ -218,10 +222,10 @@ public class CamPreviewActivity extends AppCompatActivity {
         return true;
     }
 
-    private void saveEntry(String imagePath, String price, String location) {
+    private void saveEntry(String imagePath, String price, String location, String addedDate) {
         try {
             DatabaseHelper dbHelper = new DatabaseHelper(this);
-            dbHelper.insertEntry(location, imagePath, price);
+            dbHelper.insertEntry(location, imagePath, price, addedDate);
             Toast.makeText(this, "Entry saved successfully!", Toast.LENGTH_SHORT).show();
             navigateToCamera();
         } catch (Exception e) {

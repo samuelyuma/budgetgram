@@ -31,6 +31,7 @@ public class PreviewEntryPageActivity extends AppCompatActivity {
         int id = intent.getIntExtra("id", -1);
         String locationName = intent.getStringExtra("location_name");
         String imageUrl = intent.getStringExtra("image_url");
+        String addedDate = intent.getStringExtra("added_date");
         int price = intent.getIntExtra("price", 0);
 
         currentEntry = new Entry();
@@ -38,6 +39,7 @@ public class PreviewEntryPageActivity extends AppCompatActivity {
         currentEntry.setLocationName(locationName);
         currentEntry.setImageUrl(imageUrl);
         currentEntry.setPrice(price);
+        currentEntry.setAddedDate(addedDate);
 
         ImageButton backButton = findViewById(R.id.button_back);
         ImageButton deleteButton = findViewById(R.id.button_delete);
@@ -45,7 +47,9 @@ public class PreviewEntryPageActivity extends AppCompatActivity {
         EditText priceEditInput = findViewById(R.id.price_edit_input);
         TextView locationText = findViewById(R.id.text_location);
         ImageView previewImage = findViewById(R.id.preview);
+        TextView addedDateText = findViewById(R.id.added_date_text);
 
+        addedDateText.setText(addedDate);
         locationText.setText(locationName);
         priceEditInput.setText(String.valueOf(price));
         Glide.with(this)

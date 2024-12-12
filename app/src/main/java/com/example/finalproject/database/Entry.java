@@ -9,6 +9,7 @@ public class Entry {
     private int id;
     private String locationName;
     private String imageUrl;
+    private String addedDate;
     private int price;
 
     public int getId() { return id; }
@@ -22,4 +23,7 @@ public class Entry {
 
     public int getPrice() { return price; }
     public void setPrice(int price) { this.price = price; }
+
+    public String getAddedDate() { return addedDate; }
+    public void setAddedDate(String addedDate) { this.addedDate = addedDate; }
 }

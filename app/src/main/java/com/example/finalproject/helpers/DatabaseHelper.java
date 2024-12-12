@@ -14,10 +14,11 @@ public class DatabaseHelper {
         this.database = AppDatabase.getInstance(context);
     }
 
-    public void insertEntry(String location, String photoPath, String price) {
+    public void insertEntry(String location, String photoPath, String price, String addedDate) {
         Entry entry = new Entry();
         entry.setLocationName(location);
         entry.setImageUrl(photoPath);
+        entry.setAddedDate(addedDate);
         entry.setPrice(Integer.parseInt(price));
         new Thread(() -> database.entryDao().insert(entry)).start();
     }
